@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="icon" href="data:,">
+<title>Chompipitos: Rebelión Escolar</title>
+<link rel="stylesheet" href="style.css">
+<script>
+  (function () {
+    function fitStage() {
+      var s = Math.min(window.innerWidth / 960, window.innerHeight / 540, 1);
+      document.documentElement.style.setProperty('--stage-scale', s);
+    }
+    window.addEventListener('resize', fitStage);
+    window.addEventListener('orientationchange', fitStage);
+    fitStage();
+  })();
+</script>
+</head>
+<body>
+  <div id="app">
+
+    <canvas id="game" width="960" height="540"></canvas>
+
+    <!-- PANTALLA DE TÍTULO -->
+    <section id="screen-title" class="screen">
+      <h1 class="title">CHOMPIPITOS</h1>
+      <h2 class="subtitle">Rebelión Escolar</h2>
+      <p class="blink">Presiona ENTER o toca para empezar</p>
+      <p class="credits">8-bit emo-rock edition</p>
+    </section>
+
+    <!-- CONTROLES -->
+    <section id="screen-controls" class="screen hidden">
+      <h2 class="section-title">Controles</h2>
+      <div class="controls-list">
+        <div class="control-row"><span class="key">←</span><span class="key">→</span><span class="control-desc">Moverte</span></div>
+        <div class="control-row"><span class="key key-wide">↑</span><span class="key key-wide">ESPACIO</span><span class="control-desc">Saltar (un toque simple basta, el salto es siempre igual)</span></div>
+        <div class="control-row"><span class="key key-wide">P</span><span class="control-desc">Pausar</span></div>
+      </div>
+      <p class="hint-mobile">En celular o tablet aparecen botones táctiles en pantalla.</p>
+      <button id="btn-controls-ok" class="pixel-btn">¡ENTENDIDO! (ENTER)</button>
+    </section>
+
+    <!-- SELECCIÓN DE PERSONAJE -->
+    <section id="screen-select" class="screen hidden">
+      <h2 class="section-title">Elige a tu Chompipito</h2>
+      <div id="roster" class="roster"></div>
+      <div class="select-footer">
+        <div id="char-name" class="char-name">—</div>
+        <div id="accessory-row" class="accessory-row"></div>
+        <button id="btn-start" class="pixel-btn">¡A CLASES! (ENTER)</button>
+      </div>
+    </section>
+
+    <!-- HUD -->
+    <section id="hud" class="hud hidden">
+      <div class="hud-left">
+        <span id="hud-lives">❤❤❤</span>
+      </div>
+      <div class="hud-mid" id="hud-level">NIVEL 1</div>
+      <div class="hud-right">
+        <span id="hud-turkey">🦃 0/1</span>
+        &nbsp;&nbsp;
+        <span id="hud-score">000000</span>
+      </div>
+    </section>
+
+    <!-- MENSAJE / PAUSA -->
+    <section id="screen-message" class="screen hidden">
+      <h2 id="message-title">PAUSA</h2>
+      <p id="message-body"></p>
+      <button id="btn-message-action" class="pixel-btn">CONTINUAR</button>
+    </section>
+
+    <button id="btn-sound" class="icon-btn" title="Silenciar música">🔊</button>
+  </div>
+
+  <!-- CONTROLES TÁCTILES: fuera de #app a propósito, para que NO se
+       encojan junto con el tablero del juego en pantallas chicas y
+       queden siempre a tamaño cómodo para el dedo. -->
+  <div id="touch-controls" class="hidden">
+    <div class="touch-left">
+      <button id="tc-left" class="tc-btn">◀</button>
+      <button id="tc-right" class="tc-btn">▶</button>
+    </div>
+    <div class="touch-right">
+      <button id="tc-jump" class="tc-btn tc-jump">⤒</button>
+    </div>
+  </div>
+
+  <script src="js/sprites.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/highscore.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

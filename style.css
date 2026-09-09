@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  --bg: #120c14;
+  --panel: #1c1420;
+  --red: #d13b4a;
+  --red-dark: #8c1f2b;
+  --gold: #e8c34a;
+  --ink: #f4ead8;
+  --line: #3a2a33;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: var(--ink);
+  font-family: 'Press Start 2P', monospace;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#app {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 960px;
+  height: 540px;
+  margin: -270px 0 0 -480px;
+  background: var(--bg);
+  image-rendering: pixelated;
+  overflow: hidden;
+  box-shadow: 0 0 0 4px var(--line), 0 0 24px rgba(232,195,74,0.25);
+  flex-shrink: 0;
+  transform: scale(var(--stage-scale, 1));
+  transform-origin: center center;
+}
+
+canvas#game {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  background: #1a1024;
+  display: block;
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(28, 20, 22, 0.82);
+  text-align: center;
+  padding: 20px;
+  z-index: 5;
+}
+.screen.hidden { display: none; }
+
+.title {
+  font-size: 42px;
+  color: var(--red);
+  text-shadow: 4px 4px 0 #000, 0 0 18px var(--red-dark);
+  margin: 0;
+  letter-spacing: 2px;
+}
+.subtitle {
+  font-size: 16px;
+  color: var(--gold);
+  margin: 0 0 10px 0;
+}
+.blink {
+  font-size: 12px;
+  animation: blink 1s steps(1) infinite;
+}
+.credits {
+  font-size: 9px;
+  color: #8a7a86;
+  position: absolute;
+  bottom: 14px;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+.section-title {
+  font-size: 18px;
+  color: var(--gold);
+  margin: 0 0 6px 0;
+}
+
+.controls-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 10px 0;
+}
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+.key {
+  min-width: 36px;
+  padding: 8px 10px;
+  background: var(--panel);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  color: var(--ink);
+  font-size: 14px;
+  box-shadow: 2px 2px 0 #000;
+}
+.key-wide { min-width: 70px; font-size: 11px; }
+.control-desc {
+  font-size: 11px;
+  color: var(--ink);
+  text-align: left;
+  max-width: 320px;
+  line-height: 1.6;
+}
+.hint-mobile {
+  font-size: 9px;
+  color: #b7a6b2;
+  max-width: 480px;
+}
+
+.roster {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  max-width: 640px;
+}
+.roster-item {
+  width: 130px;
+  height: 110px;
+  background: var(--panel);
+  border: 3px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 6px;
+}
+.roster-item canvas { image-rendering: pixelated; width: 64px; height: 64px; }
+.roster-item span { font-size: 8px; margin-top: 6px; color: var(--ink); }
+.roster-item .highscore { font-size: 7px; margin-top: 3px; color: var(--gold); }
+.roster-item.selected {
+  border-color: var(--red);
+  background: #2a1620;
+  box-shadow: 0 0 12px var(--red-dark);
+}
+
+.select-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.char-name { font-size: 16px; color: var(--red); min-height: 16px; }
+
+.accessory-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 480px;
+}
+.accessory-btn {
+  font-family: 'Press Start 2P', monospace;
+  background: var(--panel);
+  color: var(--ink);
+  border: 2px solid var(--line);
+  padding: 6px 8px;
+  font-size: 8px;
+  cursor: pointer;
+}
+.accessory-btn.selected {
+  border-color: var(--gold);
+  background: #3a2a1a;
+  color: var(--gold);
+}
+
+.pixel-btn {
+  font-family: 'Press Start 2P', monospace;
+  background: var(--red-dark);
+  color: var(--ink);
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  padding: 10px 18px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.pixel-btn:hover { background: var(--red); }
+.pixel-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 #000; }
+
+.hud {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--gold);
+  text-shadow: 2px 2px 0 #000;
+  z-index: 4;
+  pointer-events: none;
+}
+.hud.hidden { display: none; }
+.hud-left { color: var(--red); }
+.hud-mid { color: var(--ink); }
+
+#message-title { color: var(--red); font-size: 22px; margin: 0; }
+#message-body { font-size: 11px; line-height: 1.8; max-width: 560px; }
+
+.icon-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 6;
+  background: rgba(0,0,0,0.5);
+  border: 2px solid var(--line);
+  color: var(--ink);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+#touch-controls {
+  /* position:fixed aquí SÍ es relativo al viewport real (a diferencia de
+     cuando vivía dentro de #app, que tiene transform: scale y por eso
+     "atrapa" a los descendientes fixed): así los botones no se encogen
+     junto con el tablero del juego en pantallas chicas. */
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 18px;
+  z-index: 1000;
+  pointer-events: none;
+}
+#touch-controls.hidden { display: none; }
+.touch-left, .touch-right { display: flex; gap: 14px; pointer-events: auto; }
+.tc-btn {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  background: rgba(209,59,74,0.55);
+  color: #fff;
+  font-size: 26px;
+  font-family: inherit;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.tc-btn:active { background: rgba(209,59,74,0.85); }
+.tc-jump { width: 92px; height: 92px; background: rgba(232,195,74,0.55); font-size: 30px; }
+.tc-jump:active { background: rgba(232,195,74,0.9); }
+
+@media (min-width: 981px) {
+  #touch-controls { display: none !important; }
+}
